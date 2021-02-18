@@ -51,6 +51,7 @@ parts:
     after: [desktop]
     plugin: make
     source: https://github.com/essej/sonobus.git
+    source-tag: '1.3.2'
     source-subdir: "Builds/LinuxMakefile"
     build-packages: 
       - libjack-jackd2-dev
