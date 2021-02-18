@@ -33,9 +33,11 @@ parts:
     source-subdir: snapcraft-assets
     build-packages:
       - libasound2-dev
+      - libjack-dev
     stage-packages:
       - libasound2
       - libasound2-plugins
+      - libjack0
       - yad
 
   desktop:
@@ -54,7 +56,6 @@ parts:
     source: https://github.com/essej/sonobus.git
     source-subdir: "Builds/LinuxMakefile"
     build-packages: 
-      - libjack-jackd2-dev
       - libopus0
       - libopus-dev
       - opus-tools
@@ -68,6 +69,7 @@ parts:
       - libfreetype-dev
       - libcurl4-openssl-dev
       - build-essential
+      - libjack-dev
     override-pull: |
       snapcraftctl pull
       snapcraftctl set-version "$(git describe --tags)"
@@ -102,6 +104,7 @@ parts:
       - libsasl2-2
       - libssh-4
       - libwind0-heimdal
+      - jackd1
 
 apps:
   sonobus:
@@ -120,3 +123,4 @@ apps:
       - opengl
       - desktop
       - desktop-legacy
+      - jack1
