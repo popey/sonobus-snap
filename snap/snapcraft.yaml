@@ -55,9 +55,7 @@ parts:
     source-subdir: "Builds/LinuxMakefile"
     build-packages: 
       - libjack-jackd2-dev
-      - libopus0
       - libopus-dev
-      - opus-tools
       - libasound2-dev
       - libx11-dev
       - libxext-dev
@@ -67,7 +65,6 @@ parts:
       - libgl-dev
       - libfreetype-dev
       - libcurl4-openssl-dev
-      - build-essential
     override-pull: |
       snapcraftctl pull
       snapcraftctl set-version "$(git describe --tags)"
