@@ -73,6 +73,7 @@ parts:
     make-parameters: ["Standalone", "VST3"]
     override-build: |
       snapcraftctl build
+      strip --strip-unneeded Builds/LinuxMakefile/build/SonoBus
       mkdir -p $SNAPCRAFT_PART_INSTALL/bin
       mkdir -p $SNAPCRAFT_PART_INSTALL/lib/vst3
       pwd 
