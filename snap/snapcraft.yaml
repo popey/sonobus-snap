@@ -1,0 +1,121 @@
+name: sonobus
+base: core20
+adopt-info: sonobus
+summary: SonoBus
+description: |
+  SonoBus is an easy to use application for streaming high-quality, 
+  low-latency peer-to-peer audio between devices over the internet 
+  or a local network.
+  Simply choose a unique group name (with optional password), and 
+  instantly connect multiple people together to make music, remote 
+  sessions, podcasts, etc. Easily record the audio from everyone, 
+  as well as playback any audio content to the whole group.
+  Connects multiple users together to send and receive audio among 
+  all in a group, with fine-grained control over latency, quality 
+  and overall mix. Includes optional input compression, noise gate, 
+  and EQ effects, along with a master reverb. All settings are dynamic, 
+  network statistics are clearly visible.
+
+grade: stable
+confinement: strict
+compression: lzo
+layout:
+  /usr/lib/$SNAPCRAFT_ARCH_TRIPLET/alsa-lib:
+    bind: $SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/alsa-lib
+  /usr/share/alsa:
+    bind: $SNAP/usr/share/alsa
+
+parts:
+  alsa-mixin:
+    plugin: dump
+    source: https://github.com/diddlesnaps/snapcraft-alsa.git
+    source-subdir: snapcraft-assets
+    build-packages:
+      - libasound2-dev
+    stage-packages:
+      - libasound2
+      - libasound2-plugins
+      - yad
+
+  desktop:
+    after: [ alsa-mixin ]
+    source: https://github.com/ubuntu/snapcraft-desktop-helpers.git
+    source-subdir: glib-only
+    plugin: make
+    build-packages:
+      - libglib2.0-dev
+    stage-packages:
+      - libglib2.0-bin
+
+  sonobus:
+    after: [desktop]
+    plugin: make
+    source: https://github.com/essej/sonobus.git
+    source-subdir: "Builds/LinuxMakefile"
+    build-packages: 
+      - libjack-jackd2-dev
+      - libopus0
+      - libopus-dev
+      - opus-tools
+      - libasound2-dev
+      - libx11-dev
+      - libxext-dev
+      - libxinerama-dev
+      - libxrandr-dev
+      - libxcursor-dev
+      - libgl-dev
+      - libfreetype-dev
+      - libcurl4-openssl-dev
+      - build-essential
+    override-pull: |
+      snapcraftctl pull
+      snapcraftctl set-version "$(git describe --tags)"
+    build-environment: 
+      - CONFIG: "Release"
+    make-parameters: ["Standalone", "VST3"]
+    override-build: |
+      snapcraftctl build
+      mkdir -p $SNAPCRAFT_PART_INSTALL/bin
+      mkdir -p $SNAPCRAFT_PART_INSTALL/lib/vst3
+      pwd 
+      ls -l
+      cp -a Builds/LinuxMakefile/build/SonoBus $SNAPCRAFT_PART_INSTALL/bin
+      cp -a Builds/LinuxMakefile/build/SonoBus.vst3 $SNAPCRAFT_PART_INSTALL/lib/vst3/
+    stage-packages:
+      - libasn1-8-heimdal
+      - libcurl4
+      - libgl1
+      - libglvnd0
+      - libglx0
+      - libgssapi3-heimdal
+      - libhcrypto4-heimdal
+      - libheimbase1-heimdal
+      - libheimntlm0-heimdal
+      - libhx509-5-heimdal
+      - libkrb5-26-heimdal
+      - libldap-2.4-2
+      - libnghttp2-14
+      - libopus0
+      - libroken18-heimdal
+      - librtmp1
+      - libsasl2-2
+      - libssh-4
+      - libwind0-heimdal
+
+apps:
+  sonobus:
+    command: bin/SonoBus
+    command-chain:
+      - bin/desktop-launch
+      - snap/command-chain/alsa-launch
+    plugs:
+      - audio-playback
+      - audio-record
+      - alsa
+      - home
+      - network
+      - network-bind
+      - x11
+      - opengl
+      - desktop
+      - desktop-legacy
