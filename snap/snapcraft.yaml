@@ -35,7 +35,7 @@ parts:
     stage-packages:
       - libasound2
       - libasound2-plugins
-      - yad
+      - libjack0
 
   desktop:
     after: [ alsa-mixin ]
@@ -54,7 +54,7 @@ parts:
     source-tag: '1.3.2'
     source-subdir: "Builds/LinuxMakefile"
     build-packages: 
-      - libjack-jackd2-dev
+      - libjack-dev
       - libopus-dev
       - libasound2-dev
       - libx11-dev
@@ -109,3 +109,4 @@ apps:
       - opengl
       - desktop
       - desktop-legacy
+      - jack1
