@@ -109,3 +109,4 @@ apps:
       - desktop
       - desktop-legacy
       - jack1
+      - wayland
