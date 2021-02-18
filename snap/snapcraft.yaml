@@ -76,8 +76,7 @@ parts:
       strip --strip-unneeded Builds/LinuxMakefile/build/SonoBus
       mkdir -p $SNAPCRAFT_PART_INSTALL/bin
       mkdir -p $SNAPCRAFT_PART_INSTALL/lib/vst3
-      pwd 
-      ls -l
+      cp -a Builds/LinuxMakefile/build/SonoBus $SNAPCRAFT_PART_INSTALL/bin/
       cp -a Builds/LinuxMakefile/build/SonoBus $SNAPCRAFT_PART_INSTALL/bin
       cp -a Builds/LinuxMakefile/build/SonoBus.vst3 $SNAPCRAFT_PART_INSTALL/lib/vst3/
     stage-packages:
