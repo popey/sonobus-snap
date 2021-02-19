@@ -101,8 +101,6 @@ apps:
       - bin/desktop-launch
       - snap/command-chain/alsa-launch
     plugs:
-      - audio-playback
-      - audio-record
       - alsa
       - home
       - network
