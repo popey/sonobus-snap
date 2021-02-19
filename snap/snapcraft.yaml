@@ -17,7 +17,7 @@ description: |
   network statistics are clearly visible.
 architectures:
   - build-on: amd64
-  - build-on: arm66
+  - build-on: arm64
   - build-on: armhf
 grade: stable
 confinement: strict
