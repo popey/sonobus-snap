@@ -84,7 +84,6 @@ parts:
     stage-packages:
       - libjack0
       - libopus0
-      - jackd1
       - libasound2
       - libx11-6
       - libxext6
