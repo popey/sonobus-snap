@@ -68,7 +68,6 @@ parts:
       - libgl-dev
       - libfreetype-dev
       - libcurl4-openssl-dev
-      - libjack-dev
     override-pull: |
       snapcraftctl pull
       snapcraftctl set-version "$(git describe --tags)"
@@ -85,7 +84,6 @@ parts:
     stage-packages:
       - libjack0
       - libopus0
-      - jackd1
       - libasound2
       - libx11-6
       - libxext6
